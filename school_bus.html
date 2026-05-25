@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Apli PMPML</title>
+    <link rel="icon" href="items/logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            max-width: 430px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ====== SCREENS ====== */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+
+
+        /* ====== APP HEADER ====== */
+        .app-header {
+            background: white;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .logo-circle {
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .logo-circle img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .notification-btn {
+            position: relative;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .notification-btn svg {
+            width: 24px;
+            height: 24px;
+            color: #374151;
+            stroke-width: 1.8;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: #e5e7eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .user-avatar svg {
+            width: 20px;
+            height: 20px;
+            color: white;
+            stroke-width: 2;
+        }
+
+        /* ====== SEARCH BAR ====== */
+        .search-container {
+            padding: 14px 16px 10px;
+            background: white;
+        }
+
+        .search-bar {
+            background: #f0f1f3;
+            border-radius: 24px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-bar svg {
+            width: 20px;
+            height: 20px;
+            color: #6b7280;
+            stroke-width: 2;
+            flex-shrink: 0;
+        }
+
+        .search-text {
+            color: #6b7280;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        /* ====== MAIN CONTENT ====== */
+        .main-content {
+            padding-bottom: 72px;
+            background: #f5f5f5;
+        }
+
+        /* ====== PRIMARY OPTIONS GRID (2 cols) ====== */
+        .primary-options {
+            padding: 14px 16px 8px;
+        }
+
+        .option-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .primary-card {
+            background: #dbeafe;
+            border-radius: 12px;
+            padding: 24px 16px 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .primary-card:active {
+            transform: scale(0.97);
+            background: #bfdbfe;
+        }
+
+        .primary-card-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .primary-card-icon svg {
+            width: 36px;
+            height: 36px;
+            color: #1f2937;
+            stroke-width: 1.5;
+        }
+
+        .primary-card-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        /* ====== SECONDARY OPTIONS GRID (4 cols) ====== */
+        .secondary-options {
+            padding: 6px 16px 16px;
+        }
+
+        .option-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .secondary-card {
+            background: #dbeafe;
+            border-radius: 12px;
+            padding: 14px 6px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .secondary-card:active {
+            transform: scale(0.95);
+            background: #bfdbfe;
+        }
+
+        .secondary-card-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .secondary-card-text {
+            font-size: 11px;
+            font-weight: 500;
+            color: #1f2937;
+            line-height: 1.3;
+        }
+
+        /* Yellow ticket icon style */
+        .ticket-icon-wrapper {
+            position: relative;
+            width: 36px;
+            height: 28px;
+            margin: 0 auto;
+        }
+
+        .ticket-shape {
+            position: absolute;
+            width: 28px;
+            height: 20px;
+            background: #f59e0b;
+            border-radius: 3px;
+        }
+
+        .ticket-shape.back {
+            top: 0;
+            left: 0;
+            background: #d97706;
+        }
+
+        .ticket-shape.front {
+            top: 6px;
+            left: 8px;
+            background: #f59e0b;
+        }
+
+        /* Route timetable icon */
+        .route-icon svg {
+            width: 30px;
+            height: 30px;
+            color: #374151;
+            stroke-width: 2;
+        }
+
+        /* Metro logo */
+        .metro-logo {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #dc2626;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin: 0 auto;
+            background: white;
+        }
+
+        .metro-logo-top {
+            font-size: 5px;
+            color: #dc2626;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0px;
+        }
+
+        .metro-logo-main {
+            font-size: 7px;
+            color: #1e40af;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.3px;
+        }
+
+        .metro-logo-bottom {
+            font-size: 5px;
+            color: #dc2626;
+            font-weight: 700;
+            line-height: 1;
+            margin-top: 0px;
+        }
+
+        /* ====== NEAR ME SECTION ====== */
+        .near-me-section {
+            padding: 4px 16px 16px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .show-all-link {
+            color: #3b82f6;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .bus-stop-card {
+            background: #e8eaed;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .bus-stop-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .bus-stop-icon {
+            width: 36px;
+            height: 36px;
+            background: #16a34a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .bus-stop-icon svg {
+            width: 18px;
+            height: 18px;
+            color: white;
+            stroke-width: 2.2;
+        }
+
+        .bus-stop-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .bus-stop-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1f2937;
+            line-height: 1.35;
+        }
+
+        .bus-stop-distance {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .distance-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .distance-diamond {
+            width: 10px;
+            height: 10px;
+            background: #ef4444;
+            transform: rotate(45deg);
+            border-radius: 1.5px;
+        }
+
+        .see-more-buses {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+        }
+
+        /* ====== NEARBY SECTION ====== */
+        .nearby-section {
+            padding: 4px 16px 24px;
+        }
+
+        .nearby-map-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #e5e7eb;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* ====== BOTTOM NAVIGATION ====== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 430px;
+            width: 100%;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 10px;
+            z-index: 100;
+            box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+            min-width: 64px;
+            padding: 2px 0;
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+            color: #9ca3af;
+            stroke-width: 1.8;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: #9ca3af;
+        }
+
+        .nav-item.active svg {
+            color: #111827;
+            stroke-width: 2.2;
+        }
+
+        .nav-item.active .nav-label {
+            color: #111827;
+            font-weight: 700;
+        }
+
+        /* ====== DAILY PASS SCREEN ====== */
+        .pass-screen-bg {
+            background: #ffe187;
+            min-height: 100vh;
+        }
+
+        .pass-header {
+            background: #ffe187;
+            color: white;
+            padding: 14px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pass-back-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .pass-back-btn svg {
+            width: 26px;
+            height: 26px;
+            color: white;
+            stroke-width: 2;
+        }
+
+        .pass-header-text {
+            font-size: 15px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .pass-body {
+            padding: 24px 16px 110px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pass-card {
+            background: white;
+            border-radius: 16px;
+            overflow: visible;
+            position: relative;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .pass-red-top {
+            background: #ed1c24;
+            color: white;
+            text-align: center;
+            padding: 4px 20px;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 16px 16px 0 0;
+            letter-spacing: 0.3px;
+        }
+
+        .pass-details {
+            padding: 28px 28px 0px;
+        }
+
+        .pass-info-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 0.8fr 0.8fr;
+            gap: 8px;
+            margin-bottom: 55px;
+        }
+
+        .pass-field-label {
+            font-size: 13px;
+            font-weight: 400;
+            color: #6b7280;
+            margin-bottom: 6px;
+            text-transform: capitalize;
+        }
+
+        .pass-field-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: #111827;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .pass-dotted-divider {
+            border: none;
+            border-top: 2px dashed #d1d5db;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .pass-dotted-divider::before,
+        .pass-dotted-divider::after {
+            content: '';
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background: #ffe187;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .pass-dotted-divider::before {
+            left: -38px;
+        }
+
+        .pass-dotted-divider::after {
+            right: -38px;
+        }
+
+        .pass-time-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .pass-time-grid .pass-field-label {
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .pass-time-grid .pass-field-value {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .pass-id-text {
+            text-align: center;
+            font-size: 13px;
+            color: #3b3f49;
+            margin-bottom: 20px;
+            letter-spacing: 0.8px;
+        }
+
+        .pass-red-banner {
+            background: #ed1c24;
+            color: white;
+            text-align: center;
+            padding: 2px 20px;
+            margin: 0 -28px 50px;
+        }
+
+        .pass-logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .pass-pmpml-logo {
+            width: 180px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            animation: pulseScale 2s ease-in-out infinite;
+        }
+
+        .pass-pmpml-logo img {
+            width: 170px;
+            height: 170px;
+            object-fit: contain;
+        }
+
+        @keyframes pulseScale {
+
+            0%,
+            100% {
+                transform: scale(0.9);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .pass-expires {
+            text-align: center;
+            font-size: 15px;
+            font-weight: 500;
+            color: #171717;
+            padding-bottom: 8px;
+        }
+
+        .pass-expires .timer {
+            color: #424e62;
+        }
+
+        .qr-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 430px;
+            width: 100%;
+            background: transparent;
+            padding: 16px 18px;
+            z-index: 200;
+        }
+
+        .qr-button {
+            width: 100%;
+            background: #beefd0;
+            color: rgb(26, 139, 49);
+            padding: 14px 18px;
+            border: 2px solid rgb(26, 139, 49);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.15s;
+        }
+
+        .qr-button:active {
+            background: none;
+        }
+
+        .qr-button svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        /* ====== MODAL ====== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            border-radius: 14px;
+            padding: 28px 24px;
+            margin: 24px;
+            max-width: 320px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 22px;
+            line-height: 1.5;
+        }
+
+        .modal-btn {
+            width: 100%;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .modal-btn:active {
+            background: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================== HOME SCREEN ==================== -->
+    <div id="homeScreen" class="screen active">
+
+        <!-- App Header -->
+        <div class="app-header">
+            <div class="logo-circle">
+                <img src="items/logo.png" alt="PMPML Logo">
+            </div>
+            <div class="header-right">
+                <div class="notification-btn">
+                    <!-- Bell icon -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                    </svg>
+                </div>
+                <div class="user-avatar" style="overflow:hidden;">
+                    <img src="items/profile.png" alt="Profile"
+                        style="width:36px; height:36px; object-fit:cover; border-radius:50%;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-bar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <span class="search-text">कुठे जायचे आहे?</span>
+            </div>
+        </div>
+
+        <div class="main-content">
+
+            <!-- Primary Options: Bus Ticket, Daily Pass -->
+            <div class="primary-options">
+                <div class="option-grid-2">
+                    <div class="primary-card" id="busTicketCard">
+                        <div class="primary-card-icon">
+                            <img src="items/bus_ticket.png" alt="Bus Ticket"
+                                style="width:48px; height:48px; object-fit:contain;">
+                        </div>
+                        <div class="primary-card-text">Bus Ticket</div>
+                    </div>
+                    <div class="primary-card" id="dailyPassCard">
+                        <div class="primary-card-icon">
+                            <img src="items/daily_pass.png" alt="Daily Pass"
+                                style="width:48px; height:48px; object-fit:contain;">
+                        </div>
+                        <div class="primary-card-text">Daily Pass</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Secondary Options: View Ticket, View Pass, Route Timetable, Metro Ticket -->
+            <div class="secondary-options">
+                <div class="option-grid-4">
+                    <!-- View Ticket -->
+                    <div class="secondary-card" id="viewTicketCard" onclick="showModal()">
+                        <div class="secondary-card-icon">
+                            <img src="items/ticket_icon.png" alt="View Ticket"
+                                style="width:36px; height:36px; object-fit:contain;">
+                        </div>
+                        <div class="secondary-card-text">View<br>Ticket</div>
+                    </div>
+                    <!-- View Pass -->
+                    <div class="secondary-card" id="viewPassCard" onclick="showDailyPass()">
+                        <div class="secondary-card-icon">
+                            <img src="items/ticket_icon.png" alt="View Pass"
+                                style="width:36px; height:36px; object-fit:contain;">
+                        </div>
+                        <div class="secondary-card-text">View<br>Pass</div>
+                    </div>
+                    <!-- Route Timetable -->
+                    <div class="secondary-card" id="routeCard">
+                        <div class="secondary-card-icon">
+                            <img src="items/route_timetable.png" alt="Route Timetable"
+                                style="width:36px; height:36px; object-fit:contain;">
+                        </div>
+                        <div class="secondary-card-text">Route Ti<br>metable</div>
+                    </div>
+                    <!-- Metro Ticket -->
+                    <div class="secondary-card" id="metroCard">
+                        <div class="secondary-card-icon">
+                            <img src="items/pune_metro.png" alt="Pune Metro"
+                                style="width:40px; height:40px; object-fit:contain; border-radius:50%;">
+                        </div>
+                        <div class="secondary-card-text">Metro<br>Ticket</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Near Me Section -->
+            <div class="near-me-section">
+                <div class="section-header">
+                    <h3 class="section-title">Near Me</h3>
+                    <span class="show-all-link">Show all</span>
+                </div>
+
+                <div class="bus-stop-card">
+                    <div class="bus-stop-row">
+                        <div class="bus-stop-icon" style="background:none;">
+                            <img src="items/bus_stop.png" alt="Bus Stop"
+                                style="width:36px; height:36px; object-fit:contain; border-radius:50%;">
+                        </div>
+                        <div class="bus-stop-info">
+                            <div class="bus-stop-name">Shingad Collage Ambegaon Bus Stop</div>
+                        </div>
+                        <div class="bus-stop-distance">
+                            <span class="distance-text">59 m</span>
+                            <div class="distance-diamond"></div>
+                        </div>
+                    </div>
+                    <div class="see-more-buses">See More Buses</div>
+                </div>
+            </div>
+
+            <!-- Nearby Section (Map area - left blank per user request) -->
+            <div class="nearby-section">
+                <h3 class="section-title" style="margin-bottom: 12px;">Nearby</h3>
+                <div class="nearby-map-placeholder" style="overflow:hidden; padding:0;">
+                    <img src="items/google_map.jpeg" alt="Nearby Map"
+                        style="width:100%; height:100%; object-fit:cover; border-radius:12px;">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav" id="bottomNav">
+            <div class="nav-item active" data-tab="home">
+                <!-- Home icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9,22 9,12 15,12 15,22" />
+                </svg>
+                <span class="nav-label">Home</span>
+            </div>
+            <div class="nav-item" data-tab="buses">
+                <!-- Buses/Map Pin icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span class="nav-label">Buses</span>
+            </div>
+            <div class="nav-item" data-tab="help">
+                <!-- Help icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+                <span class="nav-label">Help</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== DAILY PASS SCREEN ==================== -->
+    <div id="passScreen" class="screen pass-screen-bg">
+        <!-- Pass Header -->
+        <div class="pass-header">
+            <div class="pass-back-btn" onclick="showHome()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </div>
+            <span class="pass-header-text">Need Help?</span>
+            <span class="pass-header-text">All Passes</span>
+        </div>
+
+        <!-- Pass Card -->
+        <div class="pass-body">
+            <div class="pass-card">
+                <!-- Red header -->
+                <div class="pass-red-top">पुणे महानगर परिवहन महामंडळ लि.</div>
+
+                <!-- Pass Details -->
+                <div class="pass-details">
+                    <div class="pass-info-grid">
+                        <div>
+                            <div class="pass-field-label">Pass Type</div>
+                            <div class="pass-field-value">PMC &amp; PCMC</div>
+                        </div>
+                        <div>
+                            <div class="pass-field-label">ID</div>
+                            <div class="pass-field-value">4652</div>
+                        </div>
+                        <div>
+                            <div class="pass-field-label">Fare</div>
+                            <div class="pass-field-value">₹70.83</div>
+                        </div>
+                    </div>
+
+                    <!-- Dotted Divider with half-circle cuts -->
+                    <div class="pass-dotted-divider"></div>
+
+                    <div class="pass-time-grid">
+                        <div>
+                            <div class="pass-field-label">Booking Time</div>
+                            <div class="pass-field-value" id="bookingTime">20 Sep, 25 | 06:53 AM</div>
+                        </div>
+                        <div>
+                            <div class="pass-field-label">Validity Time</div>
+                            <div class="pass-field-value" id="validityTime">20 Sep, 25 | 11:59 PM</div>
+                        </div>
+                    </div>
+
+                    <div class="pass-id-text">25092006535M93PT</div>
+
+                    <!-- Red banner -->
+                    <div class="pass-red-banner">One Day Pass</div>
+
+                    <!-- PMPML Logo -->
+                    <div class="pass-logo-container">
+                        <div class="pass-pmpml-logo">
+                            <img src="items/logo.png" alt="PMPML Logo">
+                        </div>
+                    </div>
+
+                    <div class="pass-expires">Expires in <span class="timer" id="timer">08:30:36</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QR Button at Bottom -->
+        <div class="qr-bottom-bar">
+            <button class="qr-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                    <rect x="17" y="17" width="4" height="4" />
+                    <line x1="14" y1="14" x2="14" y2="17" />
+                    <line x1="14" y1="14" x2="17" y2="14" />
+                </svg>
+                <span>Show QR code</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL ==================== -->
+    <div id="modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3 class="modal-title">No Active Pass</h3>
+            <p class="modal-text">You don't have any active passes to view. Please purchase a daily pass first.</p>
+            <button class="modal-btn" onclick="hideModal()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // ===== Screen Navigation =====
+        function showDailyPass() {
+            document.getElementById('homeScreen').classList.remove('active');
+            document.getElementById('passScreen').classList.add('active');
+            setCurrentDateTime();
+            if (!timerInterval) {
+                timerInterval = setInterval(updateTimer, 1000);
+            }
+        }
+
+        function showHome() {
+            document.getElementById('passScreen').classList.remove('active');
+            document.getElementById('homeScreen').classList.add('active');
+        }
+
+        // ===== Modal =====
+        function showModal() {
+            document.getElementById('modal').classList.add('active');
+        }
+        function hideModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // ===== Date Formatting =====
+        function formatDate(date) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const day = date.getDate();
+            const month = months[date.getMonth()];
+            const year = String(date.getFullYear()).slice(-2);
+            return day + ' ' + month + ', ' + year;
+        }
+
+        function setCurrentDateTime() {
+            const now = new Date();
+            const dateStr = formatDate(now);
+            document.getElementById('bookingTime').textContent = dateStr + ' | 06:53 AM';
+            document.getElementById('validityTime').textContent = dateStr + ' | 11:59 PM';
+        }
+
+        // ===== Timer =====
+        let timeRemaining = 8 * 3600 + 30 * 60 + 36;
+        let timerInterval = null;
+
+        function updateTimer() {
+            if (timeRemaining > 0) {
+                const hours = Math.floor(timeRemaining / 3600);
+                const minutes = Math.floor((timeRemaining % 3600) / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById('timer').textContent =
+                    String(hours).padStart(2, '0') + ':' +
+                    String(minutes).padStart(2, '0') + ':' +
+                    String(seconds).padStart(2, '0');
+                timeRemaining--;
+            } else {
+                document.getElementById('timer').textContent = 'Expired';
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        timerInterval = setInterval(updateTimer, 1000);
+        setCurrentDateTime();
+    </script>
+</body>
+
+</html>
