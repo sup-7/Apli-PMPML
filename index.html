@@ -10,6 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --pass-bg-color: #ffe187;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -475,12 +479,12 @@
 
         /* ====== DAILY PASS SCREEN ====== */
         .pass-screen-bg {
-            background: #ffe187;
+            background: var(--pass-bg-color);
             min-height: 100vh;
         }
 
         .pass-header {
-            background: #ffe187;
+            background: var(--pass-bg-color);
             color: white;
             padding: 14px 18px;
             display: flex;
@@ -577,7 +581,7 @@
             position: absolute;
             width: 26px;
             height: 26px;
-            background: #ffe187;
+            background: var(--pass-bg-color);
             border-radius: 50%;
             top: 50%;
             transform: translateY(-50%);
@@ -948,9 +952,11 @@
                     <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
             </div>
-            <span class="pass-header-text">Need Help?</span>
+            <span class="pass-header-text" id="needHelpBtn" style="cursor: pointer;" title="Change Theme Color">Need
+                Help?</span>
             <span class="pass-header-text">All Passes</span>
         </div>
+        <input type="color" id="passColorPicker" value="#ffe187" style="display: none;">
 
         <!-- Pass Card -->
         <div class="pass-body">
@@ -1095,6 +1101,31 @@
 
         timerInterval = setInterval(updateTimer, 1000);
         setCurrentDateTime();
+
+        // ===== Background Color Picker =====
+        const needHelpBtn = document.getElementById('needHelpBtn');
+        const passColorPicker = document.getElementById('passColorPicker');
+
+        // Load saved color
+        const savedColor = localStorage.getItem('pass-bg-color');
+        if (savedColor) {
+            document.documentElement.style.setProperty('--pass-bg-color', savedColor);
+            if (passColorPicker) passColorPicker.value = savedColor;
+        }
+
+        // Open color picker on click
+        if (needHelpBtn && passColorPicker) {
+            needHelpBtn.addEventListener('click', () => {
+                passColorPicker.click();
+            });
+
+            // Handle color selection
+            passColorPicker.addEventListener('input', (event) => {
+                const selectedColor = event.target.value;
+                document.documentElement.style.setProperty('--pass-bg-color', selectedColor);
+                localStorage.setItem('pass-bg-color', selectedColor);
+            });
+        }
     </script>
 </body>
 
